@@ -64,7 +64,7 @@ header {
   align-items: center;
 }
 
-.nav, article, footer, .secondary { /* CHANGED: div[class="nav"] -> .nav because HTML is now <nav class="nav"> */
+.nav, article, footer, .secondary { /* changed .nav because HTML is now <nav class="nav"> */
   background-color: rgb(255, 255, 255);
 }
 
@@ -76,29 +76,29 @@ article {
   margin-right: 10px;
 }
 
-.nav { /* CHANGED: div[class="nav"] -> .nav */
+.nav { /* changed */
   height: 50px;
-  background-color: #FFFF; /* CHANGED: added missing # so the color actually applies */
+  background-color: #FFFF; 
   display: flex;
   padding: 1% 0;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.nav ul { /* CHANGED */
+.nav ul { /* changed */
   padding: 0;
   list-style-type: none;
   flex: 2;
   display: flex;
 }
 
-.nav li { /* CHANGED */
+.nav li { /* changed */
   display: inline;
   text-align: center;
   flex: 1;
 }
 
-.nav a { /* CHANGED */
+.nav a { /* changed */
   display: inline-block;
   font-size: 2rem;
   text-transform: uppercase;
@@ -106,7 +106,7 @@ article {
   color: black;
 }
 
-.nav .search { /* CHANGED */
+.nav .search { /* changed */
   flex: 1;
   display: flex;
   align-items: center;
@@ -133,9 +133,9 @@ article {
 
 /* || main layout */
 
-/* CHANGED: old selector was article h1 (but article title is now h2) */
-article h2 { /* CHANGED */
-  text-align: center; /* CHANGED */
+/* changed: */
+article h2 { /* changed */
+  text-align: center; /* changed */
 }
 
 main {
@@ -170,7 +170,7 @@ td {
   text-align: center;
 }
 
-/* CHANGED: your table now uses <th scope="col">, so keep this working */
+/* changed */
 th[scope="col"] {
   border-bottom: 1px solid black;
 }
@@ -201,14 +201,11 @@ audio {
   cursor: pointer;
 }
 
-/* CHANGED: comments headings are now h3 instead of font[size="6"] */
-.comments h3 { /* CHANGED */
-  font-size: 2rem; /* CHANGED */
-  text-align: center; /* CHANGED: matches previous centered look */
+/* changed */
+.comments h3 { /* changed */
+  font-size: 2rem; /* changed */
+  text-align: center; /* changed */
 }
-
-/* CHANGED: removed font-specific nth-of-type rule (no longer applies) */
-/* (deleted) .comments font[size="6"]:nth-of-type(2) { margin-bottom: 0; } */
 
 .comment-form {
   margin-bottom: 3rem;
