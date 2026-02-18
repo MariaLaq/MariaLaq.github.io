@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design System — Maria L.</title>
+
+  <!-- My Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* 
+      Palette inspired by the Filipino flag colors,
+      but with a modern,and minimalist aesthetic.
+    */
+
+    :root {
+      /* Colors */
+      --c-primary:   #0038A8; /* deep blue */
+      --c-secondary: #CE1126; /* red */
+      --c-accent:    #FCD116; /* yellow */
+      --c-neutral:   #1F2937; /* charcoal */
+      --c-surface:   #F8FAFC; /* off-white surface */
+
+      /* Text colors */
+      --text:        #1F2937;
+      --text-muted:  #475569;
+      --text-invert: #F8FAFC;
+
+      /* Link colors */
+      --link:        #0038A8;
+      --link-hover:  #CE1126;
+      --link-visited:#6D28D9; 
+
+      /* Typography */
+      --font-display: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-body:    "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      --fs-body: 1rem;       /* 16px */
+      --fs-small: 0.875rem;  /* 14px */
+      --fs-h3: 1.25rem;      /* 20px */
+      --fs-h2: 1.5625rem;    /* 25px */
+      --fs-h1: 2.0rem;       /* 32px */
+
+      --lh-body: 1.6;
+      --lh-tight: 1.2;
+
+      /* Spacing scale (multiples of 8) */
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 16px;
+      --sp-lg: 24px;
+      --sp-xl: 32px;
+      --sp-2xl: 48px;
+
+      /* Radius + shadows */
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.10);
+
+      /* Focus ring (clear + consistent) */
+      --focus: 0 0 0 4px rgba(252, 209, 22, 0.55); /* accent yellow glow */
+    }
+
+    /* =========================================================
+       BASICS
+       ========================================================= */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--text);
+      background: linear-gradient(180deg, #EEF2FF 0%, var(--c-surface) 45%);
+    }
+
+    /* Layout */
+    .container {
+      width: min(980px, 92vw);
+      margin: 0 auto;
+      padding: var(--sp-2xl) 0;
+    }
+
+    header {
+      padding: var(--sp-2xl) 0 var(--sp-xl);
+    }
+
+    .title {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 4vw, 3rem);
+      line-height: var(--lh-tight);
+      margin: 0 0 var(--sp-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 70ch;
+    }
+
+    .section {
+      background: rgba(248, 250, 252, 0.75);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: var(--radius);
+      padding: var(--sp-xl);
+      margin: var(--sp-xl) 0;
+    }
+
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      margin: 0 0 var(--sp-md);
+      letter-spacing: -0.01em;
+    }
+
+    .note {
+      color: var(--text-muted);
+      margin-top: 0;
+      margin-bottom: var(--sp-lg);
+    }
+
+    /* =========================================================
+       MY COLOR PALETTE
+       ========================================================= */
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: var(--sp-md);
+    }
+
+    .swatch {
+      border-radius: calc(var(--radius) - 4px);
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      background: white;
+    }
+
+    .swatch-color {
+      padding: var(--sp-lg);
+      min-height: 92px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--sp-md);
+    }
+
+    .swatch-meta {
+      padding: var(--sp-md);
+      display: grid;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      background: rgba(15, 23, 42, 0.06);
+    }
+
+    /* Swatch color helpers */
+    .bg-primary   { background: var(--c-primary); color: var(--text-invert); }
+    .bg-secondary { background: var(--c-secondary); color: var(--text-invert); }
+    .bg-accent    { background: var(--c-accent); color: var(--c-neutral); }
+    .bg-neutral   { background: var(--c-neutral); color: var(--text-invert); }
+    .bg-surface   { background: var(--c-surface); color: var(--c-neutral); }
+
+    /* =========================================================
+       TYPOGRAPHY
+       ========================================================= */
+    .type-samples {
+      display: grid;
+      gap: var(--sp-md);
+    }
+
+    .h1 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h1);
+      line-height: var(--lh-tight);
+      margin: 0;
+    }
+
+    .h2 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      line-height: var(--lh-tight);
+      margin: 0;
+    }
+
+    .h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-h3);
+      line-height: var(--lh-tight);
+      margin: 0;
+      color: var(--c-secondary);
+    }
+
+    .body {
+      margin: 0;
+      max-width: 75ch;
+    }
+
+    .small {
+      margin: 0;
+      font-size: var(--fs-small);
+      color: var(--text-muted);
+      max-width: 75ch;
+    }
+
+    /* =========================================================
+       SPACING SYSTEM
+       ========================================================= */
+    .spacing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--sp-md);
+      align-items: end;
+    }
+
+    .space-card {
+      border: 1px dashed rgba(15, 23, 42, 0.18);
+      border-radius: calc(var(--radius) - 6px);
+      padding: var(--sp-md);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .space-bar {
+      height: 18px;
+      border-radius: 8px;
+      background: var(--c-primary);
+      margin-top: var(--sp-sm);
+    }
+
+    /* =========================================================
+       INTERACTIVITY
+       ========================================================= */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-md);
+      align-items: center;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font: 600 1rem/1 var(--font-body);
+      cursor: pointer;
+      transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+    }
+
+    .btn-primary {
+      background: var(--c-primary);
+      color: var(--text-invert);
+    }
+
+    .btn-secondary {
+      background: var(--c-secondary);
+      color: var(--text-invert);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--c-neutral);
+      color: var(--c-neutral);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+
+    .btn:active {
+      transform: translateY(0px);
+      filter: brightness(0.98);
+    }
+
+    /* Accessible focus styles */
+    .btn:focus,
+    a:focus,
+    input:focus {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
+    /* Links with hover + visited states */
+    a {
+      color: var(--link);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 2px;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+    }
+
+    a:visited {
+      color: var(--link-visited);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      max-width: 420px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.18);
+      font: 400 1rem/1.2 var(--font-body);
+      background: white;
+    }
+
+    input[type="text"]::placeholder {
+      color: #94A3B8;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">Design System — Filipino Flag -inspired. Modern and Minimal</h1>
+      <p class="subtitle">
+        A design system showing my culture reflected onto a color palette, typography hierarchy, spacing scale, and interactive components.
+      </p>
+    </header>
+
+    <!-- ===================== COLOR PALETTE ===================== -->
+    <section class="section" aria-labelledby="color-title">
+      <h2 id="color-title">Color Palette</h2>
+
+      <div class="palette">
+        <div class="swatch">
+          <div class="swatch-color bg-primary">
+            <strong>Primary</strong>
+            <span class="pill">#0038A8</span>
+          </div>
+          <div class="swatch-meta">
+            <div>Text: <strong>#F8FAFC</strong></div>
+            <div>Contrast Ratio: <strong>9.85:1</strong></div>
+          </div>
+        </div>
+
+        <div class="swatch">
+          <div class="swatch-color bg-secondary">
+            <strong>Secondary</strong>
+            <span class="pill">#CE1126</span>
+          </div>
+          <div class="swatch-meta">
+            <div>Text: <strong>#F8FAFC</strong></div>
+            <div>Contrast Ratio: <strong>5.63:1</strong></div>
+          </div>
+        </div>
+
+        <div class="swatch">
+          <div class="swatch-color bg-accent">
+            <strong>Accent</strong>
+            <span class="pill">#FCD116</span>
+          </div>
+          <div class="swatch-meta">
+            <div>Text: <strong>#1F2937</strong></div>
+            <div>Contrast Ratio: <strong>9.98:1</strong></div>
+          </div>
+        </div>
+
+        <div class="swatch">
+          <div class="swatch-color bg-neutral">
+            <strong>Neutral</strong>
+            <span class="pill">#1F2937</span>
+          </div>
+          <div class="swatch-meta">
+            <div>Text: <strong>#F8FAFC</strong></div>
+            <div>Contrast Ratio: <strong>14.68:1</strong></div>
+          </div>
+        </div>
+
+        <div class="swatch">
+          <div class="swatch-color bg-surface">
+            <strong>Surface</strong>
+            <span class="pill">#F8FAFC</span>
+          </div>
+          <div class="swatch-meta">
+            <div>Text: <strong>#1F2937</strong></div>
+            <div>Contrast Ratio: <strong>14.03:1</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TYPOGRAPHY ===================== -->
+    <section class="section" aria-labelledby="type-title">
+      <h2 id="type-title">Typography</h2>
+
+      <div class="type-samples">
+        <p class="h1">Heading 1 — Space Grotesk</p>
+        <p class="h2">Heading 2 — Space Grotesk</p>
+        <p class="h3">Heading 3 — Space Grotesk</p>
+
+        <p class="body">
+          Body text — Using Inter for readability and a clean, modern look.
+        </p>
+
+        <p class="small">
+          Small text — Subtle and understated, good for annotations, and footnotes.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== SPACING SYSTEM ===================== -->
+    <section class="section" aria-labelledby="space-title">
+      <h2 id="space-title">Spacing System</h2>
+      <p class="note">
+        Spacing blocks demonstrating size variations.
+      </p>
+
+      <div class="spacing-grid">
+        <div class="space-card">
+          <strong>XS</strong> <span class="kbd">4px</span>
+          <div class="space-bar" style="width: 4px;"></div>
+        </div>
+
+        <div class="space-card">
+          <strong>SM</strong> <span class="kbd">8px</span>
+          <div class="space-bar" style="width: 8px;"></div>
+        </div>
+
+        <div class="space-card">
+          <strong>MD</strong> <span class="kbd">16px</span>
+          <div class="space-bar" style="width: 16px;"></div>
+        </div>
+
+        <div class="space-card">
+          <strong>LG</strong> <span class="kbd">24px</span>
+          <div class="space-bar" style="width: 24px;"></div>
+        </div>
+
+        <div class="space-card">
+          <strong>XL</strong> <span class="kbd">32px</span>
+          <div class="space-bar" style="width: 32px;"></div>
+        </div>
+
+        <div class="space-card">
+          <strong>2XL</strong> <span class="kbd">48px</span>
+          <div class="space-bar" style="width: 48px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Links ===================== -->
+    <section class="section" aria-labelledby="components-title">
+      <h2 id="components-title">Interactive Components</h2>
+
+      <div class="row" style="margin-bottom: var(--sp-lg);">
+        <button class="btn btn-primary" type="button">Primary Button</button>
+      </div>
+
+      <div class="row" style="margin-bottom: var(--sp-lg);">
+        <a href="#components-title">Standard Link</a>
+        <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visited Link</a>
+      </div>
+
+    </section>
+
+  </div>
+</body>
+</html>
+
