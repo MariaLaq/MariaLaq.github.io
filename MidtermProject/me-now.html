@@ -5,47 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Me Now</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1 class="title me-now-title">Me Now</h1>
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="logo">Maria Gabrielle</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Background &amp; Culture</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="me-now.html" class="active">Me Now</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="me-now-wrapper">
+    <main>
+        <section aria-labelledby="me-now-title">
+            <h1 class="title me-now-title" id="me-now-title">Me Now</h1>
+            <p class="page-intro">Where I am now, and the future I hope to design.</p>
 
-        <!-- big personal image -->
-        <section class="hero-card">
-            <img src="assets/Me.png" alt="A photo representing who I am now">
-        </section>
+            <div class="me-now-wrapper">
 
-        <!-- bottom section -->
-        <section class="me-info-row">
+                <section class="hero-card">
+                    <img src="assets/Me.png" alt="Recent portrait of me representing who I am now">
+                </section>
 
-            <div class="bio-box">
-                <h2>Biography</h2>
-                <p>
-                    I am a junior at the University of Colorado Boulder studying Computer Science with a minor in Creative Technology and Design. 
-                    My background growing up between the Philippines, Singapore, and the United States has shaped my appreciation for culture, community, and creativity. 
-                    On campus, I currently serve as the Co-President of Asian Unity, where I help create spaces that bring students together and celebrate diverse identities. 
-                    I am passionate about design and technology, and I enjoy building digital experiences that are both thoughtful and engaging. 
-                    In the future, I hope to work in UI/UX design and help small businesses bring their ideas to life by designing and launching meaningful websites.
-                </p>
+                <section class="me-info-row">
+                    <article class="bio-box">
+                        <h2>Biography</h2>
+                        <p>
+                            I am a junior at the University of Colorado Boulder studying Computer Science with a minor in Creative Technology and Design. My background growing up between the Philippines, Singapore, and the United States has shaped my appreciation for culture, community, and creativity. On campus, I currently serve as the Co-President of Asian Unity, where I help create spaces that bring students together and celebrate diverse identities. I am passionate about design and technology, and I enjoy building digital experiences that are both thoughtful and engaging. In the future, I hope to work in UI/UX design and help small businesses bring their ideas to life by designing and launching meaningful websites.
+                        </p>
+                    </article>
+
+                    <aside class="social-box">
+                        <h2>Socials</h2>
+                        <p>Instagram: @gvbby.lvq</p>
+                        <p>LinkedIn: mglaquindanum-85530028b</p>
+                        <p>Email: mala3464@colorado.edu</p>
+                    </aside>
+                </section>
+
+                <div class="me-nav">
+                    <a href="impact.html" class="nav-button back-button">← Back to Impact</a>
+                </div>
+
             </div>
-
-            <div class="social-box">
-                <h2>Socials</h2>
-                <p>Instagram: @gvbby.lvq</p>
-                <p>LinkedIn: @mglaquindanum-85530028b</p>
-                <p>Email: mala3464@colorado.edu</p>
-            </div>
-
         </section>
-
-        <!-- bottom navigation -->
-        <div class="me-nav">
-            <a href="impact.html" class="nav-button back-button">← Back to Impact</a>
-        </div>
-
-    </div>
+    </main>
 
 </body>
 </html>

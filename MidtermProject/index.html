@@ -2,63 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Background and Culture</title>
     <link rel="stylesheet" href="style.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<h1 class="title">My Background and Culture</h1>
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="logo">Maria Gabrielle</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Background &amp; Culture</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="me-now.html">Me Now</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="page-wrapper">
+    <main>
+        <section aria-labelledby="background-title">
+            <h1 class="title" id="background-title">My Background and Culture</h1>
+            <p class="page-intro">A journey through my roots, culture, and the places that shaped who I am.</p>
 
-    <!-- Travel Path -->
-    <svg class="flight-path" viewBox="0 0 1000 600">
-        <path d="M50 00 H900 V280 H50 V400 H900" />
-    </svg>
+            <div class="page-wrapper">
 
-    <div class="airplane">✈</div>
+                <svg class="flight-path" viewBox="0 0 1000 600" aria-hidden="true" preserveAspectRatio="none">
+                    <path d="M50 0 H900 V280 H50 V400 H900"></path>
+                </svg>
 
+                <div class="airplane" aria-hidden="true">✈</div>
 
-    <!-- Grid -->
-    <div class="grid-container">
+                <section class="grid-container" aria-label="Background and culture story cards">
 
-        <div class="card">
-            <img src="assets/IMG_9223 2.jpg">
-            <p>This is where my story begins, as a little girl born in the Philippines and connected to the roots that shaped me first.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9223 2.jpg" alt="Baby portrait from the beginning of my life in the Philippines">
+                        <h3>My Roots</h3>
+                        <p>This is where my story begins, as a little girl born in the Philippines and connected to the roots that shaped me first.</p>
+                    </article>
 
-        <div class="card">
-            <img src="assets/IMG_9215.JPG">
-            <p>My Filipino identity has always been grounded in family, where love, closeness, and togetherness taught me what home truly feels like.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9215.JPG" alt="Large family photo representing my Filipino family and culture">
+                        <h3>Family and Culture</h3>
+                        <p>My Filipino identity has always been grounded in family, where love, closeness, and togetherness taught me what home truly feels like.</p>
+                    </article>
 
-        <div class="card">
-            <img src="assets/IMG_9212.jpg">
-            <p>I spent most of my childhood in Singapore, and those years gave me some of my earliest memories, curiosity, and sense of adventure.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9212.jpg" alt="Childhood photo of me in Singapore in front of the Merlion">
+                        <h3>Growing Up in Singapore</h3>
+                        <p>I spent most of my childhood in Singapore, and those years gave me some of my earliest memories, curiosity, and sense of adventure.</p>
+                    </article>
 
-        <div class="card">
-            <img src="assets/IMG_9219.JPG">
-            <p>As my family's journey continued, moving and growing together taught me how to adapt while still holding onto the people who matter most.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9219.JPG" alt="Family photo in the car representing our journey and transition">
+                        <h3>A New Chapter</h3>
+                        <p>As my family's journey continued, moving and growing together taught me how to adapt while still holding onto the people who matter most.</p>
+                    </article>
 
-        <div class="card">
-            <img src="assets/IMG_9224.jpg">
-            <p>Growing up in America helped shape who I am today through the friendships, experiences, and community that became part of my everyday life.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9224.jpg" alt="Photo with friends representing my life and community in America">
+                        <h3>What Makes Me Me</h3>
+                        <p>Growing up in America helped shape who I am today through the friendships, experiences, and community that became part of my everyday life.</p>
+                    </article>
 
-        <div class="card">
-            <img src="assets/IMG_9222.jpg">
-            <p>Now, I carry every place I have been with me, and each part of my journey continues to shape the person I am becoming.</p>
-        </div>
+                    <article class="card">
+                        <img src="assets/IMG_9222.jpg" alt="Recent photo of me by the ocean representing my journey forward">
+                        <h3>My Journey Forward</h3>
+                        <p>Now, I carry every place I have been with me, and each part of my journey continues to shape the person I am becoming.</p>
+                    </article>
 
-    </div>
+                </section>
 
-    <a href="impact.html" class="impact-button">See My Impact</a>
-
-</div>
+                <a href="impact.html" class="impact-button">See My Impact</a>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>

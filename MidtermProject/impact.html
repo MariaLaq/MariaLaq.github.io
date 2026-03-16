@@ -5,80 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Impact</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1 class="title">My Impact</h1>
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="logo">Maria Gabrielle</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Background &amp; Culture</a></li>
+                <li><a href="impact.html" class="active">Impact</a></li>
+                <li><a href="me-now.html">Me Now</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="page-wrapper">
+    <main>
+        <section aria-labelledby="impact-title">
+            <h1 class="title" id="impact-title">My Impact</h1>
+            <p class="page-intro">The communities I build, the spaces I lead, and the creativity I hope to carry forward.</p>
 
-        <!-- Impact flight path -->
-        <svg class="impact-flight-path" viewBox="0 0 1200 500" preserveAspectRatio="none">
-            <path d="M250 450 H1000"></path>
-        </svg>
+            <div class="page-wrapper">
 
-        <!-- Impact airplane -->
-        <div class="impact-plane">✈</div>
+                <svg class="impact-flight-path" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M250 450 H1000"></path>
+                </svg>
 
-        <!-- Impact cards -->
-        <div class="impact-container">
+                <div class="impact-plane" aria-hidden="true">✈</div>
 
-            <div class="impact-card">
-                <img src="assets/IMG_9221.jpg" alt="Building Community">
-                <h3>Building Community</h3>
-                <p>
-                    I founded the first Filipino Student Association at CU Boulder to create a space where Filipino students and allies could connect and 
-                    celebrate culture together. Building this organization allowed me to bring people together around identity, tradition, and community. 
-                    Seeing that space grow into a supportive network has been one of the most meaningful parts of my college experience.
-                </p>
+                <section class="impact-container" aria-label="Impact story cards">
+
+                    <article class="impact-card">
+                        <img src="assets/IMG_9221.jpg" alt="Group photo from the Filipino Student Association at CU Boulder">
+                        <h3>Building Community</h3>
+                        <p>
+                            I founded the first Filipino Student Association at CU Boulder to create a space where Filipino students and allies could connect and celebrate culture together. Building this organization allowed me to bring people together around identity, tradition, and community. Seeing that space grow into a supportive network has been one of the most meaningful parts of my college experience.
+                        </p>
+                    </article>
+
+                    <article class="impact-card">
+                        <img src="assets/IMG_9226.jpg" alt="Asian Unity event activity where I helped lead community engagement">
+                        <h3>Leading Community</h3>
+                        <p>
+                            As the current Co-President of Asian Unity, I help lead events that bring students together to celebrate culture and community. From organizing activities to creating welcoming spaces, I enjoy helping people connect and share experiences. Leadership in this role has taught me how powerful community-building can be.
+                        </p>
+                    </article>
+
+                    <article class="impact-card">
+                        <img src="assets/IMG_9227.jpg" alt="Photo of me performing at a cultural show">
+                        <h3>Sharing My Voice</h3>
+                        <p>
+                            Singing has always been one of my favorite ways to express myself. Each year, I perform at the PTA and Vietnamese Student Association culture shows, sharing music while celebrating culture and community. Performing allows me to connect with others and bring energy and joy to the spaces I'm part of.
+                        </p>
+                    </article>
+
+                    <article class="impact-card">
+                        <img src="assets/IMG_9228.png" alt="Bubble Bricks website concept showing my UI and UX design work">
+                        <h3>Designing My Future</h3>
+                        <p>
+                            My creativity also extends into design and technology. Bubble Bricks is a personal project where I created the UI/UX for a website concept, exploring how thoughtful design and functionality shape engaging digital experiences. In the future, I hope to continue sharing my voice through designing websites and digital spaces.
+                        </p>
+                        <p>
+                            <a href="https://www.figma.com/proto/2k37evrV2CK36gc112SPzK/Bubble-Bricks-Site?node-id=8032-265&t=Ms08t0y0sr1o60ic-1&starting-point-node-id=8032%3A265" target="_blank" rel="noopener noreferrer">
+                                View my Bubble Bricks project
+                            </a>
+                        </p>
+                    </article>
+
+                </section>
+
+                <div class="nav-buttons">
+                    <a href="index.html" class="nav-button back-button">← Back to Home</a>
+                    <a href="me-now.html" class="nav-button next-button">Me Now →</a>
+                </div>
+
             </div>
-
-            <div class="impact-card">
-                <img src="assets/IMG_9226.jpg" alt="Leading Community">
-                <h3>Leading Community</h3>
-                <p>
-                    As the current Co-President of Asian Unity, I help lead events that bring students together to celebrate culture and community. 
-                    From organizing activities to creating welcoming spaces, I enjoy helping people connect and share experiences. 
-                    Leadership in this role has taught me how powerful community-building can be.
-                </p>
-            </div>
-
-            <div class="impact-card">
-                <img src="assets/IMG_9227.jpg" alt="Sharing My Voice">
-                <h3>Sharing My Voice</h3>
-                <p>
-                    Singing has always been one of my favorite ways to express myself. 
-                    Each year, I perform at the PTA and Vietnamese Student Association culture shows, sharing music while celebrating culture and community. 
-                    Performing allows me to connect with others and bring energy and joy to the spaces I'm part of.
-                </p>
-            </div>
-
-            <div class="impact-card">
-                <img src="assets/IMG_9228.png" alt="Designing My Future">
-                <h3>Designing My Future</h3>
-                <p>
-                    My creativity also extends into design and technology. Bubble Bricks is a personal project where I created the UI/UX for a website concept, 
-                    exploring how thoughtful design and functionality shape engaging digital experiences. 
-                    In the future, I hope to continue sharing my voice through designing websites and digital spaces.
-                    <a href="https://www.figma.com/proto/2k37evrV2CK36gc112SPzK/Bubble-Bricks-Site?node-id=8032-265&t=Ms08t0y0sr1o60ic-1&starting-point-node-id=8032%3A265" target="_blank">Check out my Bubble Bricks website here!</a>
-                </p>
-            </div>
-
-        </div>
-
-        <div class="nav-buttons">
-
-            <a href="index.html" class="nav-button back-button">
-                ← Back to Home
-            </a>
-
-            <a href="me-now.html" class="nav-button next-button">
-                Me Now →
-            </a>
-
-        </div>        
-
-    </div>
+        </section>
+    </main>
 
 </body>
 </html>
