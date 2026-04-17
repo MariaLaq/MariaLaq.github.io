@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Volume Bird</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-wrap">
+    <canvas id="c"></canvas>
+
+    <div id="hud">
+      <div id="vol-display">VOL 0%</div>
+      <div id="mode-badge">NORMAL</div>
+    </div>
+
+    <button id="mode-btn">NORMAL</button>
+
+    <div id="track-bar">
+      <div id="track-fill"></div>
+    </div>
+    <div id="track-pos">0:00 / 3:00</div>
+
+    <div id="overlay">
+      <h2>Volume Bird</h2>
+      <p>Fly through pipes to raise the volume.<br />Arrow keys change direction. Space to flap.</p>
+      <div class="controls-hint">
+        <span>⬆ Space / Click — Flap</span>
+        <span>← Heavy mode &nbsp; → Normal mode</span>
+        <span>Land on ground to save volume</span>
+      </div>
+      <button id="start-btn">Start Flying</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
