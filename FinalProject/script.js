@@ -3,22 +3,20 @@
 const canvas  = document.getElementById('c');
 const ctx     = canvas.getContext('2d');
 const isMobile = window.innerWidth < 600;
-const W = isMobile ? window.innerWidth : 800;
-const H = isMobile ? window.innerHeight : 500;
+const W = isMobile ? window.innerWidth : 1000;
+const H = isMobile ? window.innerHeight : 650;
 canvas.width  = W;
 canvas.height = H;
 
 //  DOM REFS
 const volDisplay = document.getElementById('vol-display');
-const modeBadge  = document.getElementById('mode-badge');
 const trackFill  = document.getElementById('track-fill');
 const trackPos   = document.getElementById('track-pos');
 const overlay    = document.getElementById('overlay');
-const startBtn   = document.getElementById('start-btn');
 
 //  AUDIO ENGINE
 let audioCtx     = null;
-let masterGain   = null;   // controls song volume
+let masterGain   = null;   
 let bgGain       = null;
 let bgOsc        = null;
 let melInterval  = null;
@@ -67,7 +65,6 @@ function initAudio() {
 
 function setMusicVolume(vol) {
   if (!audioCtx) return;
-  // vol: 0..1  — song audibility tied directly to game volume
   bgGain.gain.setTargetAtTime(vol * 0.6, audioCtx.currentTime, 0.3);
   masterGain.gain.setTargetAtTime(vol * 0.5, audioCtx.currentTime, 0.3);
 }
@@ -125,21 +122,22 @@ const GRAVITY       = 0.38;
 const JUMP_NORMAL   = -6.5;
 const JUMP_MULTI    = 0.7;   // "heavy bird" multiplier for backwards mode
 const PIPE_SPEED    = 2.2;
-const PIPE_GAP      = 90;
-const PIPE_INTERVAL = 145;   // frames between spawns
+const PIPE_GAP      = 80;
+const PIPE_INTERVAL = 145;   
 const GAP_Y_MIN     = 60;
 const GAP_Y_MAX     = H - 60 - PIPE_GAP;
 const GROUND_Y      = H - 30;
-const SONG_DURATION = 180;   // seconds (fake 3-minute song)
+const SONG_DURATION = 180;  
 
 //  THE STATE
-let volume      = 0;   // 0..1 — current playback volume level
-let lockedVolume= 0;   // volume saved when bird touches ground
+let volume      = 0;   
+let lockedVolume= 0;   
 let isBackwards = false;
 let gameOver    = false;
 let started     = false;
 
 let bird, pipes, frame, pipeTimer, score, songTime;
+
 
 function initGame() {
   bird = { x: 80, y: H / 2, vy: 0, w: 22, h: 18 };
@@ -149,6 +147,7 @@ function initGame() {
   score       = 0;
   songTime    = 0;
   volume      = lockedVolume;
+  setMusicVolume(volume);
   gameOver    = false;
 }
 
@@ -198,16 +197,31 @@ function flap() {
 function setMode(backwards) {
   isBackwards = backwards;
   canvas.classList.toggle('inverted', isBackwards);
-  modeBadge.textContent = isBackwards ? 'QUIETER' : 'LOUDER';
-  modeBadge.classList.toggle('heavy', isBackwards);
-  modeBtn.textContent = isBackwards ? 'QUIETER' : 'LOUDER';
+  modeBtn.textContent = isBackwards ? '🔊 Switch to Louder' : '🔉 Switch to Quieter';
   modeBtn.classList.toggle('heavy', isBackwards);
 }
 
 //  PIPE FACTORY
 function spawnPipe() {
-  const gapY = GAP_Y_MIN + Math.random() * (GAP_Y_MAX - GAP_Y_MIN);
-  pipes.push({ x: W + 12, gapY, passed: false });
+  const GAP_H = PIPE_GAP;   
+  const SOLID = 50;          
+  const TOTAL = 4 * GAP_H + 3 * SOLID; 
+
+  const startY = Math.floor((GROUND_Y - TOTAL) / 2);
+
+  const values = isBackwards
+    ? [-1, -2, -3, -4].sort(() => Math.random() - 0.5)
+    : [1, 2, 3, 4].sort(() => Math.random() - 0.5);
+  
+  const gaps = [];
+  for (let i = 0; i < 4; i++) {
+    gaps.push({
+      y: startY + i * (GAP_H + SOLID),
+      value: values[i]
+    });
+  }
+
+  pipes.push({ x: W + 12, gaps, passed: false });
 }
 
 //  UPDATE — physics + game logic
@@ -222,43 +236,35 @@ function update() {
   bird.vy += GRAVITY;
   bird.y  += bird.vy;
 
-  // Ceiling
   if (bird.y < 0) { bird.y = 0; bird.vy = 0; }
 
-  // Ground — "Save Platform" logic
-  const onGround = bird.y + bird.h >= GROUND_Y;
-  if (onGround) 
-  {
-    bird.y  = GROUND_Y - bird.h;
-    bird.vy = 0;
+  if (bird.y + bird.h >= GROUND_Y) {
+    triggerDeath();
+    return;
   }
-  bird.onGround = onGround;
+  bird.onGround = false;
 
-  // Slight volume decay in the air (never below locked)
-  if (!onGround) {
-    volume = Math.max(lockedVolume, volume - 0.0004);
-  }
-
-  // ── Spawn pipes ──
   if (pipeTimer >= PIPE_INTERVAL) {
     spawnPipe();
     pipeTimer = 0;
   }
 
-  // ── Move & check pipes ──
-  const PW = 28;
   for (let i = pipes.length - 1; i >= 0; i--) {
     const p = pipes[i];
+    const PW = 24;  
     p.x -= PIPE_SPEED;
 
-    // Volume unlock — fires as pipe exits left of bird
+    // Volume unlock — apply value of gap the bird flew through
     if (!p.passed && p.x + PW < bird.x) {
       p.passed = true;
-      if (isBackwards) {
-        volume = Math.max(0, lockedVolume - 0.05);
-      } else {
-        volume = Math.min(1, lockedVolume + 0.05);
-      }
+      const birdCY = bird.y + bird.h / 2;
+      const chosenGap = p.gaps.find(g => birdCY >= g.y && birdCY <= g.y + PIPE_GAP);
+      const gainPct = chosenGap ? chosenGap.value : 0;
+
+      volume = isBackwards
+        ? Math.max(0, lockedVolume + gainPct / 100)
+        : Math.min(1, lockedVolume + gainPct / 100);
+
       lockedVolume = volume;
       if (volume >= 1) {
         setMode(true);
@@ -270,17 +276,17 @@ function update() {
 
     if (p.x < -PW - 6) { pipes.splice(i, 1); continue; }
 
-    // Collision detection
+    // Collision detection — safe only if inside one of the gaps
     const bx = bird.x, by = bird.y, bw = bird.w, bh = bird.h;
     if (bx + bw > p.x && bx < p.x + PW) {
-      if (by < p.gapY || by + bh > p.gapY + PIPE_GAP) {
+      const inAGap = p.gaps.some(g => by >= g.y && by + bh <= g.y + PIPE_GAP);
+      if (!inAGap) {
         triggerDeath();
         return;
       }
     }
   }
 
-  // ── Update HUD ──
   const pct = Math.round(volume * 100);
   volDisplay.textContent = `VOL ${pct}%`;
   trackFill.style.width  = pct + '%';
@@ -323,27 +329,40 @@ function drawCloud(cx, cy, r) {
 }
 
 function drawPipe(p) {
-  const PW = 28, CAP = 14, CAPX = 3;
-  // Top
-  ctx.fillStyle = COL.pipeG;
-  ctx.fillRect(p.x, 0, PW, p.gapY);
-  ctx.fillStyle = COL.pipeDark;
-  ctx.fillRect(p.x - CAPX, p.gapY - CAP, PW + CAPX * 2, CAP);
+  const PW = 36, CAPX = 3, CAP = 6;
+  const cx = p.x + PW / 2;
 
-  // Bottom
-  const bot = p.gapY + PIPE_GAP;
-  ctx.fillStyle = COL.pipeG;
-  ctx.fillRect(p.x, bot, PW, H - bot);
-  ctx.fillStyle = COL.pipeDark;
-  ctx.fillRect(p.x - CAPX, bot, PW + CAPX * 2, CAP);
+  const solidSections = [];
+  let cursor = 0;
+  p.gaps.forEach(g => {
+    if (g.y > cursor) solidSections.push({ y: cursor, h: g.y - cursor });
+    cursor = g.y + PIPE_GAP;
+  });
 
-  // Volume label above top cap
-  if (!p.passed && p.x > 0 && p.x < W) {
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.font = '9px "Courier New"';
-    ctx.textAlign = 'center';
-    ctx.fillText(isBackwards ? '-5%' : '+5%', p.x + PW / 2, p.gapY - 18);
-  }
+  if (cursor < GROUND_Y) solidSections.push({ y: cursor, h: GROUND_Y - cursor });
+
+  solidSections.forEach(s => {
+    ctx.fillStyle = COL.pipeG;
+    ctx.fillRect(p.x, s.y, PW, s.h);
+  });
+
+  // Caps and labels for each gap
+  p.gaps.forEach(g => {
+    // Top cap
+    ctx.fillStyle = COL.pipeDark;
+    ctx.fillRect(p.x - CAPX, g.y - CAP, PW + CAPX * 2, CAP);
+    // Bottom cap
+    ctx.fillStyle = COL.pipeDark;
+    ctx.fillRect(p.x - CAPX, g.y + PIPE_GAP, PW + CAPX * 2, CAP);
+
+    // Label
+    if (!p.passed && p.x > 0 && p.x < W) {
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = 'bold 10px "Courier New"';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${g.value > 0 ? '+' : ''}${g.value}%`, cx, g.y + PIPE_GAP / 2 + 4);    
+    }
+  });
 }
 
 function drawBird() {
@@ -395,7 +414,6 @@ function drawBird() {
 }
 
 function drawVolBar() {
-  // Small volume bar floating above the bird
   const bx = bird.x - 2, by = bird.y - 12, bw = bird.w + 4, bh = 5;
   ctx.fillStyle = 'rgba(0,0,0,0.45)';
   ctx.fillRect(bx, by, bw, bh);
@@ -426,16 +444,6 @@ function render() {
   ctx.fillStyle = COL.dirt;
   ctx.fillRect(0, GROUND_Y + 10, W, H - GROUND_Y - 10);
 
-  // Platform save indicator
-  if (bird.onGround) {
-    ctx.fillStyle = 'rgba(255,255,100,0.22)';
-    ctx.fillRect(bird.x - 8, GROUND_Y, bird.w + 16, 10);
-    ctx.fillStyle = '#fff';
-    ctx.font = '8px "Courier New"';
-    ctx.textAlign = 'center';
-    ctx.fillText('SAVED', bird.x + bird.w / 2, GROUND_Y - 4);
-  }
-
   // Bird
   drawBird();
 
@@ -456,18 +464,30 @@ function triggerDeath() {
   setMusicVolume(0);
 
   overlay.innerHTML = `
-    <h2>Crashed!</h2>
-    <p class="score-line">Volume locked at ${Math.round(lockedVolume * 100)}%</p>
-    <p>Score: ${score} pipe${score !== 1 ? 's' : ''} passed</p>
-    <button class="restart-btn" id="restart-btn">Try Again</button>
-  `;
-  overlay.style.display = 'flex';
+      <h2>Crashed!</h2>
+      <p class="score-line">Volume locked at ${Math.round(lockedVolume * 100)}%</p>
+      <p>Score: ${score} pipe${score !== 1 ? 's' : ''} passed</p>
+      <p>Choose your goal:</p>
+      <div style="display:flex; gap:12px; margin-top:4px;">
+        <button class="restart-btn" id="btn-louder-restart">🔊 Louder</button>
+        <button class="restart-btn" id="btn-quieter-restart">🔉 Quieter</button>
+      </div>
+    `;
+    overlay.style.display = 'flex';
 
-  document.getElementById('restart-btn').addEventListener('click', () => {
-    overlay.style.display = 'none';
-    initGame();
-    started = true;
-  });
+    document.getElementById('btn-louder-restart').addEventListener('click', () => {
+      overlay.style.display = 'none';
+      setMode(false);
+      initGame();
+      started = true;
+    });
+
+    document.getElementById('btn-quieter-restart').addEventListener('click', () => {
+      overlay.style.display = 'none';
+      setMode(true);
+      initGame();
+      started = true;
+    });
 }
 
 //  MAIN LOOP
@@ -478,9 +498,19 @@ function loop() {
 }
 
 //  START
-startBtn.addEventListener('click', () => {
+document.getElementById('btn-louder').addEventListener('click', () => {
   initAudio();
   overlay.style.display = 'none';
+  setMode(false);
+  initGame();
+  started = true;
+  loop();
+});
+
+document.getElementById('btn-quieter').addEventListener('click', () => {
+  initAudio();
+  overlay.style.display = 'none';
+  setMode(true);
   initGame();
   started = true;
   loop();

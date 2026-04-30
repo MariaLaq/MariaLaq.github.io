@@ -12,7 +12,6 @@
 
     <div id="hud">
       <div id="vol-display">VOL 0%</div>
-      <div id="mode-badge">NORMAL</div>
     </div>
 
     <button id="mode-btn">NORMAL</button>
@@ -22,16 +21,18 @@
     </div>
     <div id="track-pos">0:00 / 3:00</div>
 
-    <div id="overlay">
-      <h2>Volume Bird</h2>
-      <p>Fly through pipes to raise the volume.<br />Arrow keys change direction. Space to flap.</p>
-      <div class="controls-hint">
-        <span>⬆ Space / Click — Flap</span>
-        <span>← Heavy mode &nbsp; → Normal mode</span>
-        <span>Land on ground to save volume</span>
+      <div id="overlay">
+        <h2>Volume Bird</h2>
+        <p>Fly through pipes to set your volume.<br />Choose your goal:</p>
+        <div style="display:flex; gap:12px; margin-top:4px;">
+          <button id="btn-louder">🔊 Louder</button>
+          <button id="btn-quieter">🔉 Quieter</button>
+        </div>
+        <div class="controls-hint">
+          <span>⬆ Space / Click — Flap</span>
+          <span>Land on ground to save volume</span>
+        </div>
       </div>
-      <button id="start-btn">Start Flying</button>
-    </div>
   </div>
 
   <script src="script.js"></script>
